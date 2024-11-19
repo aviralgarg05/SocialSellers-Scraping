@@ -19,9 +19,9 @@ load_dotenv()
 # Fetch API keys from environment variables
 TWITTER_BEARER_TOKEN = os.getenv('TWITTER_BEARER_TOKEN')
 GENAI_API_KEY = os.getenv('GENAI_API_KEY')
+
 # Set up Google Gemini API
 genai.configure(api_key=GENAI_API_KEY)
-model = genai.GenerativeModel("gemini-1.5-flash")
 
 def extract_text_from_image(image_url):
     try:
@@ -33,8 +33,13 @@ def extract_text_from_image(image_url):
 
 def generate_content_with_gemini(prompt):
     try:
-        response = model.generate_content(prompt)
-        return response.text
+        # Generate content using the Gemini API
+        response = genai.generate(
+            model="gemini-1.5-flash",  # Specify the model
+            prompt=prompt,
+            max_output_tokens=150  # Set the maximum output tokens (adjust as needed)
+        )
+        return response['text']
     except Exception as e:
         return f"Error generating content: {e}"
 
