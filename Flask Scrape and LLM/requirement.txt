@@ -1,0 +1,7 @@
+flask
+tweepy
+requests
+pillow
+pytesseract
+google-generativeai
+python-dotenv
